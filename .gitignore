@@ -1,0 +1,4 @@
+venv
+catalog.db
+.env
+__pycache__ 
