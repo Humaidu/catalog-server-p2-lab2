@@ -4,7 +4,7 @@ A simple, lightweight Catalog API built with Flask and PostgreSQL, deployed on a
 
 ---
 
-## 🚀 Features
+## Features
 
 - REST API to retrieve product listings.
 - Backend powered by Flask and SQLAlchemy ORM.
@@ -15,7 +15,7 @@ A simple, lightweight Catalog API built with Flask and PostgreSQL, deployed on a
 
 ---
 
-## 🧱 Project Structure
+## Project Structure
 catalog-server/
     ├── app.py # Main Flask application
     ├── .env # Environment variables
@@ -27,7 +27,7 @@ catalog-server/
 
 ---
 
-## ⚙️ Prerequisites
+## Prerequisites
 
 - Python 3.12+
 - PostgreSQL
@@ -37,7 +37,7 @@ catalog-server/
 
 ---
 
-## 🛠️ Setup Instructions
+## Setup Instructions
 
 ### 1. Clone the Repository
 
@@ -200,6 +200,32 @@ sudo systemctl enable catalog
 
 curl http://<your-ec2-ip>/products
 
-Example:
+**Example:**
 curl http://3.249.117.153/products
+
+**Output:**
+
+```
+[
+  {
+    "description": "Powerful laptop",
+    "id": 1,
+    "name": "Laptop",
+    "price": 1200.0
+  },
+  {
+    "description": "Android phone",
+    "id": 2,
+    "name": "Smartphone",
+    "price": 800.0
+  },
+  {
+    "description": "10-inch screen",
+    "id": 3,
+    "name": "Tablet",
+    "price": 400.0
+  }
+]
+
+```
 
