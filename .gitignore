@@ -4,3 +4,4 @@ catalog.db
 __pycache__ 
 
 cookies.txt
+*.txt
