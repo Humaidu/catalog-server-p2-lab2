@@ -2,3 +2,5 @@ venv
 catalog.db
 .env
 __pycache__ 
+
+cookies.txt
