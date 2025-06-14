@@ -323,6 +323,98 @@ curl -X POST http://localhost:5000/logout \
 
 ---
 
+## HTTPS Configuration (Without a Domain)
+
+To enable HTTPS access to your Flask-based catalog server without a domain name (using only your server's public IP), follow these steps:
+
+### Generate a Self-Signed SSL Certificate
+
+```
+sudo openssl req -x509 -nodes -days 365 \
+  -newkey rsa:2048 \
+  -keyout /etc/ssl/private/selfsigned.key \
+  -out /etc/ssl/certs/selfsigned.crt \
+  -subj "/CN=server-ip-address"
+
+```
+
+- When prompted, fill in details as needed.
+- For Common Name, you can use your server's IP (e.g., 78.244.190.2).
+
+
+### Configure NGINX for HTTPS
+
+Create or edit the NGINX site configuration file:
+
+```
+sudo vi /etc/nginx/sites-available/catalog
+
+```
+
+Paste the following configuration:
+
+```
+server {
+    listen 443 ssl;
+    server_name _;
+
+    ssl_certificate /etc/ssl/certs/selfsigned.crt;
+    ssl_certificate_key /etc/ssl/private/selfsigned.key;
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+
+    location /profile {
+        allow 127.0.0.1;
+        allow server_name;
+        deny all;
+
+        proxy_pass http://127.0.0.1:5000;
+        include proxy_params;
+    }
+
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+        include proxy_params;
+    }
+}
+
+# Optional HTTP redirect to HTTPS
+server {
+    listen 80;
+    server_name _
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+```
+
+### Enable the NGINX Site
+
+```
+sudo ln -s /etc/nginx/sites-available/catalog /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+
+```
+
+### Access the Server via HTTPS
+
+Visit your server address
+
+Example:
+```
+https://78.244.190.2
+
+```
+
+- ⚠️ Browsers will show a warning due to the self-signed certificate. You can safely bypass this for internal or testing purposes.
+
+
+---
+
 ## Technologies Used
 
 - Python 3.12
