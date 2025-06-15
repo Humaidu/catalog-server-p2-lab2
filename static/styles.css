@@ -86,3 +86,73 @@ footer {
   text-align: center;
   padding: 1rem;
 }
+
+/* Login Form Styling */
+.container .login-header{
+  max-width: 100px;
+  margin: 2rem auto;
+  color: #005fa3;
+}
+
+form {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+form input[type="text"],
+form input[type="password"] {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+form input:focus {
+  outline: none;
+  border-color: #005b99;
+  box-shadow: 0 0 3px #0077cc;
+}
+
+form .btn {
+  width: 100%;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+form .btn:hover {
+  background-color: #005fa3;
+}
+
+#error-msg {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* Responsive Layout */
+@media (max-width: 500px) {
+  form {
+    margin: 1rem;
+    padding: 1rem;
+  }
+}
