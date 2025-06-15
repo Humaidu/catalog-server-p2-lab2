@@ -22,10 +22,18 @@ A simple, lightweight Catalog API built with Flask and PostgreSQL, deployed on a
 
 ## Project Structure
 catalog-server/
-    ├── app.py # Main Flask application
-    ├── .env # Environment variables
-    ├── requirements.txt # Python dependencies
-    └── venv/ # Python virtual environment
+├── app.py
+├── auth.py
+├── models.py
+├── extensions.py
+├── templates/
+│   ├── index.html
+│   ├── products.html
+│   ├── profile.html
+│   └── login.html
+├── static/
+│   └── styles.css
+└── .env
 
 ---
 
@@ -415,7 +423,32 @@ https://78.244.190.2
 
 ---
 
-## Technologies Used
+## UI Implemetation
+
+The frontend of the Catalog Server was implemented using HTML, CSS, and minimal JavaScript, with support for dynamic content rendered via Flask templates and JWT-based authentication.
+
+### Pages & Templates
+
+All HTML templates are located in the templates/ directory:
+
+| Page     | Template File   | Description                                                                  |
+| -------- | --------------- | ---------------------------------------------------------------------------- |
+| Home     | `index.html`    | Public landing page with welcome message.                                    |
+| Products | `products.html` | Displays a list of products fetched from the backend database.               |
+| Profile  | `profile.html`  | Protected route showing user-specific info, requires JWT cookie auth.        |
+| Login    | `login.html`    | Public login page, submits credentials to `/login` and stores JWT in cookie. |
+
+
+### Styling
+
+A single styles.css file is located in static/ and includes:
+
+- Responsive layout
+- Modern font & color scheme
+
+---
+
+## Technologies Use
 
 - Python 3.12
 - Flask
