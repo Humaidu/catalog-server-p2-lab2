@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Catalog Server</div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/login">Login</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <h1>Login</h1>
+        <form id="loginForm">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit" class="btn">Login</button>
+            <p id="error-msg" style="color: red;"></p>
+        </form>
+    </main>
+
+    <footer>© 2025 Catalog Server</footer>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        const errorMsg = document.getElementById('error-msg');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const username = form.username.value;
+            const password = form.password.value;
+
+            const res = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password }),
+                credentials: 'include' // VERY IMPORTANT for cookies
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                window.location.href = '/profile';
+            } else {
+                errorMsg.textContent = data.msg || 'Login failed';
+            }
+        });
+    </script>
+</body>
+</html>
