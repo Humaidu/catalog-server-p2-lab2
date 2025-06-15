@@ -12,7 +12,11 @@
             <li><a href="/">Home</a></li>
             <li><a href="/products">Products</a></li>
             <li><a href="/profile">Profile</a></li>
-            <li><a href="/login">Login</a></li>
+            {% if user %}
+                <li><a href="#" id="logoutLink">Logout</a></li>
+            {% else %}
+                <li><a href="/login">Login</a></li>
+            {% endif %}
         </ul>
     </nav>
 
@@ -23,5 +27,20 @@
     </main>
 
     <footer>© 2025 Catalog Server</footer>
+
+    <script>
+        const logoutLink = document.getElementById('logoutLink');
+        if (logoutLink) {
+            logoutLink.addEventListener('click', async (e) => {
+                e.preventDefault();
+                await fetch('/logout', {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+                window.location.href = '/login';
+            });
+        }
+    </script>
+    
 </body>
 </html>

@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
-from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
+from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity, verify_jwt_in_request
 from dotenv import load_dotenv
 import os
 from extensions import db, jwt
@@ -61,7 +61,16 @@ def profile():
     user = get_jwt_identity()
     return render_template("profile.html", user=user)
 
-    
+
+@app.context_processor
+def inject_user():
+    try:
+        verify_jwt_in_request(optional=True)
+        user = get_jwt_identity()
+    except:
+        user = None
+    return {'user': user}
+
 # Application Entrypoint
 if __name__ == "__main__":
     with app.app_context():
