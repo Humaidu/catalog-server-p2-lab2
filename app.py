@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 from dotenv import load_dotenv
@@ -35,30 +35,26 @@ app.register_blueprint(auth_bp)
 # Public API Route
 @app.route("/")
 def index():
-    return jsonify({
-        "message": "Welcome Home!",
-    })
+    return render_template("index.html")
 
 # Public API Route
 @app.route("/products")
 def get_products():
     products = Product.query.all()
-    return jsonify([p.to_dict() for p in products])
+    return render_template("products.html", products=products)
 
 
 # Protected API Route
 @app.route("/profile")
 @jwt_required()
 def profile():
-    return jsonify({
-        "message": "Welcome back!",
-        "user": get_jwt_identity()
-    })
-    
+    user = get_jwt_identity()
+    return render_template("profile.html", user=user)
 
+    
 # Application Entrypoint
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=False, host="0.0.0.0")
+    app.run(debug=False, host="0.0.0.0", port=5051)
 

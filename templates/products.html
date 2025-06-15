@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalog Products</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Catalog Server</div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/profile">Profile</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <h1>Product List</h1>
+        <div class="product-list">
+            {% for product in products %}
+            <div class="product-card">
+                <h2>{{ product.name }}</h2>
+                <p>{{ product.description }}</p>
+                <span class="price">${{ product.price }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <footer>© 2025 Catalog Server</footer>
+</body>
+</html>
