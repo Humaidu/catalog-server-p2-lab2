@@ -37,6 +37,16 @@ app.register_blueprint(auth_bp)
 def index():
     return render_template("index.html")
 
+@app.route("/login")
+def login_page():
+    return render_template("login.html")
+
+@app.route("/logout")
+def logout_page():
+    response = redirect("/login")
+    unset_jwt_cookies(response)
+    return response
+
 # Public API Route
 @app.route("/products")
 def get_products():
